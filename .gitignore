@@ -18,6 +18,8 @@ CMakeUserPresets.json
 *~
 _ReSharper*
 *.log
+.clangd/
+compile_commands.json
 
 # OS Generated Files
 .DS_Store

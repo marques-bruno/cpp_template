@@ -1,3 +1,7 @@
 #+title: A clean starter template for Conan / CMake / C++
 
 Inspired by [[https://www.youtube.com/watch?v=mrSwJBJ-0z8&t=2807s][Mateusz Pusz's talk at CppNow (2021)]] and by [[https://github.com/cpp-best-practices/gui_starter_template][Jason Turner's gui starter template]].
+
+* TROUBLESHOOTING:
+
+- https://docs.conan.io/en/latest/getting_started.html: Make sure you have set  the new ABI in conan's compiler settings if you are using GCC >= 5.1

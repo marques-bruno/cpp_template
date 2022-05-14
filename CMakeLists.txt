@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 # Set the project name and language
-project(myprojectqt_starter_template
+project(myproject
   VERSION 0.0.1
   DESCRIPTION ""
   HOMEPAGE_URL "%%myurl%%"
@@ -23,9 +23,19 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Project users (who want to install / use this library but not contribute to it)
 # should build the project from src/ instead (cmake -S ./src -B ./build)
 set(ENABLE_DEVELOPER_MODE
-    TRUE
-    CACHE BOOL "Enable 'developer mode'")
+  TRUE
+  CACHE BOOL "Enable 'developer mode'")
 
+if (ENABLE_DEVELOPER_MODE)
+  # In developer mode, we want to use clang-tidy, clang-format, and some
+  # IDEs require the compile_commands.json to successfully parse the project
+  set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+  set(OPT_COPY_COMPILE_COMMANDS_IN_SOURCES ON)
+else()
+  set(CMAKE_EXPORT_COMPILE_COMMANDS OFF)  
+endif (ENABLE_DEVELOPER_MODE)
+
+  
 # Add project_options v0.21.1 from aminya's github repository:
 # https://github.com/aminya/project_options
 include(FetchContent)
@@ -57,9 +67,9 @@ include(${_project_options_SOURCE_DIR}/src/DynamicProjectOptions.cmake)
 
 # as developer, keep your code clean and free of bugs
 set(ENABLE_WARNING_AS_ERRORS_DEFAULT ON)
-set(ENABLE_CLANG_TIDY_DEFAULT ON)
+# set(ENABLE_CLANG_TIDY_DEFAULT ON)
 set(ENABLE_CPPCHECK_DEFAULT ON)
-set(ENABLE_INCLUDE_WHAT_YOU_USE_DEFAULT ON)
+# set(ENABLE_INCLUDE_WHAT_YOU_USE_DEFAULT ON)
 set(ENABLE_SANITIZER_ADDRESS_DEFAULT OFF)
 
 # Enable CCache
@@ -67,7 +77,19 @@ set(ENABLE_CACHE_DEFAULT ON)
 # generate doxygen
 set(ENABLE_DOXYGEN_DEFAULT OFF)
 
-dynamic_project_options()
+dynamic_project_options(
+  CPPCHECK_OPTIONS
+  --enable=style,performance,warning,portability
+  --inline-suppr
+  # We cannot act on a bug/missing feature of cppcheck
+  --suppress=cppcheckError
+  --suppress=internalAstError
+  # if a file does not have an internalAstError, we get an unmatchedSuppression error
+  --suppress=unmatchedSuppression
+  --suppress=passedByValue
+  --suppress=syntaxError
+  --inconclusive
+)
 
 target_compile_features(project_options INTERFACE cxx_std_${CMAKE_CXX_STANDARD})
 
@@ -86,3 +108,12 @@ add_subdirectory(src)
 #   add_subdirectory(test)
 # endif()
 
+if (OPT_COPY_COMPILE_COMMANDS_IN_SOURCES)
+  # Move compile_commands.json
+  add_custom_target(
+    copy-compile-commands ALL
+    ${CMAKE_COMMAND} -E copy_if_different
+    ${CMAKE_BINARY_DIR}/compile_commands.json
+    ${CMAKE_CURRENT_LIST_DIR}
+  )
+endif(OPT_COPY_COMPILE_COMMANDS_IN_SOURCES)
