@@ -1,0 +1,6 @@
+[requires]
+cli11/2.2.0
+fmt/8.1.1
+
+[generators]
+CMakeDeps
