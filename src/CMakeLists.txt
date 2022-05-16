@@ -10,10 +10,12 @@ find_package(CLI11 CONFIG REQUIRED)
 find_package(fmt CONFIG REQUIRED)
 find_package(spdlog CONFIG REQUIRED)
 
+add_subdirectory(myproject)
+
 add_executable(myproject main.cpp)
 
-target_link_libraries(myproject
-  PUBLIC
+target_link_libraries(myproject PRIVATE
+  myproject_lib
   CLI11::CLI11
   fmt::fmt
   spdlog::spdlog

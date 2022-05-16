@@ -30,7 +30,6 @@ if (ENABLE_DEVELOPER_MODE)
   # In developer mode, we want to use clang-tidy, clang-format, and some
   # IDEs require the compile_commands.json to successfully parse the project
   set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-  set(OPT_COPY_COMPILE_COMMANDS_IN_SOURCES ON)
 else()
   set(CMAKE_EXPORT_COMPILE_COMMANDS OFF)  
 endif (ENABLE_DEVELOPER_MODE)
@@ -108,12 +107,10 @@ add_subdirectory(src)
 #   add_subdirectory(test)
 # endif()
 
-if (OPT_COPY_COMPILE_COMMANDS_IN_SOURCES)
-  # Move compile_commands.json
-  add_custom_target(
-    copy-compile-commands ALL
+if (CMAKE_EXPORT_COMPILE_COMMANDS)
+  add_custom_target(copy-compile-commands ALL
     ${CMAKE_COMMAND} -E copy_if_different
     ${CMAKE_BINARY_DIR}/compile_commands.json
-    ${CMAKE_CURRENT_LIST_DIR}
+    ${CMAKE_SOURCE_DIR}/compile_commands.json
   )
-endif(OPT_COPY_COMPILE_COMMANDS_IN_SOURCES)
+endif(CMAKE_EXPORT_COMPILE_COMMANDS)
