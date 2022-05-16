@@ -24,7 +24,8 @@ jobs:
     - run: sudo apt install clang-tidy cppcheck
     
     - name: Install Conan
-      run: conan profile update settings.compiler.libcxx=libstdc++11 default ;
+      run: conan profile new default --detect
+           conan profile update settings.compiler.libcxx=libstdc++11 default ;
            conan install . -if ${{github.workspace}}/build -s build_type=${{env.BUILD_TYPE}}
       
     - name: Configure CMake
