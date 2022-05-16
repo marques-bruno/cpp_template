@@ -2,6 +2,7 @@
 build/
 out/
 cmake-build-*/
+Testing/
 
 # User spesific settings
 CMakeUserPresets.json
