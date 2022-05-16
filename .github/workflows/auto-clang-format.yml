@@ -4,16 +4,16 @@ env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 permissions:
-  actions: write
-  checks: write
+  #actions: write
+  #checks: write
   contents: write
-  deployments: write
-  issues: write
-  packages: write
-  pull-requests: write
-  repository-projects: write
-  security-events: write
-  statuses: write
+  #deployments: write
+  #issues: write
+  #packages: write
+  #pull-requests: write
+  #repository-projects: write
+  #security-events: write
+  #statuses: write
     
 jobs:
   build:
