@@ -21,10 +21,10 @@ jobs:
     - uses: actions/checkout@v3
     
     - uses: turtlebrowser/get-conan@v1.0
-    - run: sudo apt install clang-tidy cppcheck
+    - run: sudo apt install clang-tidy cppcheck ccache
     
     - name: Install Conan
-      run: conan profile new default --detect
+      run: conan profile new default --detect ;
            conan profile update settings.compiler.libcxx=libstdc++11 default ;
            conan install . -if ${{github.workspace}}/build -s build_type=${{env.BUILD_TYPE}}
       
