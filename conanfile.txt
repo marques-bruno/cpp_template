@@ -2,6 +2,7 @@
 cli11/2.2.0
 fmt/8.1.1
 spdlog/1.10.0
+catch2/2.13.9
 
 [generators]
 CMakeDeps

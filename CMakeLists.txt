@@ -30,6 +30,7 @@ if (ENABLE_DEVELOPER_MODE)
   # In developer mode, we want to use clang-tidy, clang-format, and some
   # IDEs require the compile_commands.json to successfully parse the project
   set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+  set(OPT_ENABLE_TESTING ON)
 else()
   set(CMAKE_EXPORT_COMPILE_COMMANDS OFF)  
 endif (ENABLE_DEVELOPER_MODE)
@@ -98,14 +99,14 @@ set(CMAKE_PREFIX_PATH ${CMAKE_BINARY_DIR} ${CMAKE_PREFIX_PATH})
 # Adding project sources
 add_subdirectory(src)
 
-# # Adding the tests:
-# option(OPT_ENABLE_TESTING "Enable the tests" ON)
-# if(OPT_ENABLE_TESTING)
-#   enable_testing()
-#   message("Building Tests. Be sure to check out test/constexpr_tests for constexpr
-# testing")
-#   add_subdirectory(test)
-# endif()
+# Adding the tests:
+option(OPT_ENABLE_TESTING "Enable the tests" ON)
+if(OPT_ENABLE_TESTING)
+  enable_testing()
+  message("Building Tests. Be sure to check out test/constexpr_tests for constexpr
+testing")
+  add_subdirectory(test)
+endif()
 
 if (CMAKE_EXPORT_COMPILE_COMMANDS)
   add_custom_target(copy-compile-commands ALL
