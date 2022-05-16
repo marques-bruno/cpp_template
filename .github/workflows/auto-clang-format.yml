@@ -20,4 +20,4 @@ jobs:
         author_email: robot@cleanup.com
         message: ':art: Committing clang-format changes'
       env:
-        GITHUB_TOKEN: ${{ secrets.KAPOUE }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
