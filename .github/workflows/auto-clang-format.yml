@@ -1,8 +1,20 @@
 name: auto-clang-format
-on: [pull_request]
+on: [push, pull_request]
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+  deployments: write
+  issues: write
+  packages: write
+  pull-requests: write
+  repository-projects: write
+  security-events: write
+  statuses: write
+    
 jobs:
   build:
     runs-on: ubuntu-latest
