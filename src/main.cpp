@@ -5,10 +5,11 @@
 #include <cstring>
 #include <list>
 #include <sstream>
+#include <optional>
 
 #include "myproject/myproject.h"
 
-bool extract_command(float& a, float& b, char& c, const std::string& message)
+bool extract_command(float& a, float& b, char& op, const std::string& message)
 {
     try
     {
@@ -23,7 +24,7 @@ bool extract_command(float& a, float& b, char& c, const std::string& message)
                 (std::string("Supporting only single-character operators: ") + str).c_str());
             return false;
         }
-        c = str[0];
+        op = str[0];
         iss >> str;
         b = std::stof(str);
         return true;
