@@ -21,3 +21,4 @@ target_link_libraries(run_${PROJECT_NAME} PRIVATE
   spdlog::spdlog
 )
 
+target_include_directories(run_${PROJECT_NAME} PRIVATE "${CMAKE_BINARY_DIR}/configured_files/include")

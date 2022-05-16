@@ -9,6 +9,9 @@
 
 #include "myproject/myproject.h"
 
+// cmake-generated config file containing version, git SHA etc.
+#include "details/config.hpp"
+
 bool extract_command(float& a, float& b, char& op, const std::string& message)
 {
     try
@@ -47,7 +50,7 @@ int main(int ac, char** av)
 {
     try
     {
-        CLI::App app{fmt::format("{} version {}", "myproject", "0.1")};
+      CLI::App app{fmt::format("{} version {}", myproject::details::project_name, myproject::details::project_version)};
 
         std::optional<std::string> message;
         app.add_option("-c,--command", message, "The command to compute (ex. 42 + 1337)");
@@ -58,7 +61,7 @@ int main(int ac, char** av)
 
         if (show_version)
         {
-            fmt::print("{}\n", "0.1");
+            fmt::print("{}\n", myproject::details::project_version);
             return EXIT_SUCCESS;
         }
 
