@@ -12,9 +12,9 @@ find_package(spdlog CONFIG REQUIRED)
 
 add_subdirectory(${PROJECT_NAME})
 
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(run_${PROJECT_NAME} main.cpp)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE
+target_link_libraries(run_${PROJECT_NAME} PRIVATE
   myproject_lib
   CLI11::CLI11
   fmt::fmt
