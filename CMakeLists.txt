@@ -109,7 +109,8 @@ if(OPT_ENABLE_TESTING)
 testing")
   add_subdirectory(test)
 endif()
-
+  
+# Exporting the compile_commands.json in the project root
 if (CMAKE_EXPORT_COMPILE_COMMANDS)
   add_custom_target(copy-compile-commands ALL
     ${CMAKE_COMMAND} -E copy_if_different
