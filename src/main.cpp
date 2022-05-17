@@ -4,8 +4,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <list>
-#include <sstream>
 #include <optional>
+#include <sstream>
 
 #include "myproject/myproject.h"
 
@@ -50,7 +50,8 @@ int main(int ac, char** av)
 {
     try
     {
-      CLI::App app{fmt::format("{} version {}", myproject::details::project_name, myproject::details::project_version)};
+        CLI::App app{fmt::format("{} version {}", myproject::details::project_name,
+                                 myproject::details::project_version)};
 
         std::optional<std::string> message;
         app.add_option("-c,--command", message, "The command to compute (ex. 42 + 1337)");
