@@ -12,6 +12,7 @@
 // cmake-generated config file containing version, git SHA etc.
 #include "details/config.hpp"
 
+/// extract the components of the command to execute from the string message
 bool extract_command(float& a, float& b, char& op, const std::string& message)
 {
     try
@@ -46,6 +47,9 @@ bool extract_command(float& a, float& b, char& op, const std::string& message)
     }
 }
 
+/// Our main entry point.
+///
+/// Parses command line, extract command & run foo()
 int main(int ac, char** av)
 {
     try
