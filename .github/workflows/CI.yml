@@ -45,10 +45,10 @@ jobs:
           # if you try to use a compiler that does not have gcov set
           - compiler: gcc-11
             gcov_executable: gcov
-            cc: gcc-11
-            cxx: g++-11
+            cc: gcc
+            cxx: g++
           - compiler: llvm
-            cc: clang++
+            cc: clang
             cxx: clang++
             gcov_executable: "llvm-cov gcov"
 
