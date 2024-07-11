@@ -4,7 +4,7 @@ include(CTest)
 include(Catch)
 
 add_library(catch_main OBJECT catch_main.cpp)
-target_link_libraries(catch_main PUBLIC Catch2::Catch2)
+target_link_libraries(catch_main PUBLIC Catch2::Catch2 Catch2::Catch2WithMain)
 target_link_libraries(catch_main PRIVATE project_options)
 
 # Provide a simple smoke test to make sure that the CLI works and can display a --help message

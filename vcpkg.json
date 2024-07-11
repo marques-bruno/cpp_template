@@ -1,0 +1,8 @@
+{
+  "dependencies": [
+    "fmt",
+    "spdlog",
+    "catch2",
+    "cli11"
+  ]
+}

@@ -1,6 +1,6 @@
 #include <myproject/myproject.h>
 
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <stdexcept>
 
 TEST_CASE("Foo returns the result of an operation <op> performed on <a> and <b>", "[foo]")

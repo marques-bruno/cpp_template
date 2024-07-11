@@ -1,11 +1,13 @@
 #include <spdlog/spdlog.h>
-
 #include <CLI/CLI.hpp>
 #include <cstdlib>
 #include <cstring>
-#include <list>
 #include <optional>
+#include <string>
 #include <sstream>
+#include <exception>
+#include <fmt/core.h>
+#include <stdexcept>
 
 #include "myproject/myproject.h"
 
@@ -24,9 +26,8 @@ bool extract_command(float& a, float& b, char& op, const std::string& message)
         iss >> str;
         if (str.size() != 1)
         {
-            std::__throw_invalid_argument(
+            throw std::invalid_argument(
                 (std::string("Supporting only single-character operators: ") + str).c_str());
-            return false;
         }
         op = str[0];
         iss >> str;
