@@ -55,6 +55,8 @@ jobs:
             
     steps:
     - uses: actions/checkout@v3
+      with:
+        submodules: 'true'
     
     - run: sudo apt install clang-tidy cppcheck ccache llvm gcovr ninja-build
     - run: pip install invoke
