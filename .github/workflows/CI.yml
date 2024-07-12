@@ -30,7 +30,7 @@ jobs:
           - gcc-11
           
         generator:
-          - "Ninja Multi-Config"
+          - "Ninja"
 
         build_type:
           - Debug
@@ -56,22 +56,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - uses: turtlebrowser/get-conan@v1.0
     - run: sudo apt install clang-tidy cppcheck ccache llvm gcovr ninja-build
+    - run: pip install invoke
     
-    - name: Install Conan
-      run: conan profile new default --detect ;
-           conan profile update settings.compiler.libcxx=libstdc++11 default ;
-           conan install . -if ${{github.workspace}}/build -s build_type=${{matrix.build_type}}
+    - name: Install VCPKG
+      run: ${{github.workspace}}/vcpkg/bootstrap-vcpkg.sh -disableMetrics
       
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake -B ${{github.workspace}}/build -G "${{matrix.generator}}" -DCMAKE_C_COMPILER=${{matrix.cc}} -DCMAKE_CXX_COMPILER=${{matrix.cxx}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} #-DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
+      run: invoke configure --build_dir ${{github.workspace}}/build --generator "${{matrix.generator}} --build_type ${{matrix.build_type}}" # -DCMAKE_C_COMPILER=${{matrix.cc}} -DCMAKE_CXX_COMPILER=${{matrix.cxx}}  -DENABLE_DEVELOPER_MODE:BOOL=${{matrix.developer_mode}} #-DOPT_ENABLE_COVERAGE:BOOL=${{ matrix.build_type == 'Debug' }}
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake --build ${{github.workspace}}/build --config ${{matrix.build_type}}
+      run: invoke build --build_dir ${{github.workspace}}/build
 
     - name: Test
       working-directory: ${{github.workspace}}/build
